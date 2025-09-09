@@ -1,0 +1,132 @@
+// schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String    @id @default(uuid())
+  name           String
+  email          String    @unique
+  slug           String    @unique 
+  avatarUrl      String?
+  role           String
+  bio            String
+  location       String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  // Relations
+  socialLinks    SocialLink[]
+  experiences    Experience[]
+  educations     Education[]
+  skills         Skill[]
+  projects       Project[]
+  certificates   Certificate[]
+  contactSubmissions ContactSubmission[]
+}
+
+model SocialLink {
+  id        String   @id @default(uuid())
+  platform  String   // e.g., "github", "linkedin", "whatsapp"
+  url       String
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Experience {
+  id           String   @id @default(uuid())
+  title        String
+  company      String
+  location     String?
+  description  String?
+  startDate    DateTime
+  endDate      DateTime?
+  current      Boolean  @default(false)
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Education {
+  id           String   @id @default(uuid())
+  institution  String
+  degree       String
+  field        String
+  startDate    DateTime
+  endDate      DateTime?
+  current      Boolean  @default(false)
+  logoUrl      String?
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Skill {
+  id          String   @id @default(uuid())
+  name        String
+  category    String   // e.g., "Frontend", "Backend", "Tools"
+  proficiency Int?     @default(0) // 0-100 percentage
+  iconUrl     String?
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Project {
+  id           String   @id @default(uuid())
+  title        String
+  description  String
+  detailedDesc String?
+  imageUrl     String
+  deployUrl    String?
+  githubUrl    String?
+  technologies String[] // Array of technologies used
+  featured     Boolean  @default(false)
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Certificate {
+  id           String   @id @default(uuid())
+  title        String
+  institution  String
+  issueDate    DateTime
+  credentialId String?
+  credentialUrl String?
+  imageUrl     String
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ContactSubmission {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  message   String
+  read      Boolean  @default(false)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

@@ -8,6 +8,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// Adicione o enum ProjectStatus
+enum ProjectStatus {
+  DEVELOPING
+  FINISHED
+  PLANNING
+  PAUSED
+  ARCHIVED
+}
+
 model User {
   id             String    @id @default(uuid())
   name           String
@@ -32,7 +41,7 @@ model User {
 
 model SocialLink {
   id        String   @id @default(uuid())
-  platform  String   // e.g., "github", "linkedin", "whatsapp"
+  platform  String
   url       String
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -76,28 +85,30 @@ model Education {
 model Skill {
   id          String   @id @default(uuid())
   name        String
-  category    String   // e.g., "Frontend", "Backend", "Tools"
-  proficiency Int?     @default(0) // 0-100 percentage
+  category    String
+  proficiency Int?     @default(0)
   iconUrl     String?
   userId      String
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  level       String?  // Nível de proficiência (Iniciante, Intermediário, Avançado, etc.) 
   
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Project {
-  id           String   @id @default(uuid())
+  id           String        @id @default(uuid())
   title        String
   description  String
   detailedDesc String?
   imageUrl     String
   deployUrl    String?
   githubUrl    String?
-  technologies String[] // Array of technologies used
-  featured     Boolean  @default(false)
+  technologies String[]
+  featured     Boolean       @default(false)
+  status       ProjectStatus @default(DEVELOPING) // Novo campo
   userId       String
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

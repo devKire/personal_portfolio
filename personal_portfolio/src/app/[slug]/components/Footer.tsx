@@ -2,6 +2,9 @@
 
 import {
   ArrowRight,
+  Calendar,
+  Code,
+  Cpu,
   FileText,
   Github,
   Heart,
@@ -10,7 +13,10 @@ import {
   Mail,
   MapPin,
   MessageCircle,
+  Rocket,
+  Sparkles,
   Twitter,
+  Zap,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -47,267 +53,249 @@ export function Footer({ user }: FooterProps) {
     link.platform.toLowerCase().includes("twitter"),
   )?.url;
 
+  const technologies = [
+    { name: "React & Next.js", icon: <Sparkles className="h-4 w-4" /> },
+    { name: "TypeScript", icon: <Code className="h-4 w-4" /> },
+    { name: "Node.js", icon: <Cpu className="h-4 w-4" /> },
+    { name: "Tailwind CSS", icon: <Zap className="h-4 w-4" /> },
+  ];
+
+  const quickLinks = [
+    { name: "Início", href: "#home", icon: "🏠" },
+    { name: "Sobre Mim", href: "#about", icon: "👨‍💻" },
+    { name: "Projetos", href: "#projects", icon: "🚀" },
+    { name: "Habilidades", href: "#skills", icon: "🛠️" },
+    { name: "Contato", href: "#contact", icon: "📞" },
+  ];
+
   return (
-    <footer className="bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 text-white">
-      {/* Newsletter Section - Opcional para portfolio pessoal */}
-      <div className="border-b border-white/10">
-        <div className="container mx-auto px-6 py-12">
-          <div className="flex flex-col items-center justify-between gap-8 lg:flex-row">
-            <div className="text-center lg:text-left">
-              <h3 className="mb-2 text-2xl font-bold">
-                Vamos trabalhar juntos?
-              </h3>
-              <p className="max-w-md text-blue-200">
-                Estou sempre aberto a novos projetos e oportunidades
+    <footer className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white">
+      {/* Background Elements */}
+      <div className="bg-grid-white/[0.02] absolute inset-0 bg-[size:60px_60px]" />
+      <div className="absolute top-0 left-0 h-64 w-64 rounded-full bg-blue-500/10 blur-3xl" />
+      <div className="absolute right-0 bottom-0 h-64 w-64 rounded-full bg-purple-500/10 blur-3xl" />
+
+      {/* Main Footer Content */}
+      <div className="relative container mx-auto px-6 py-16">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
+          {/* Brand & Social */}
+          <div className="space-y-6">
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-purple-600">
+                  <FileText className="h-6 w-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold">{user.name}</h3>
+                  <p className="text-sm text-gray-400">
+                    Desenvolvedor Full Stack
+                  </p>
+                </div>
+              </div>
+
+              <p className="text-lg leading-relaxed text-gray-300">
+                Transformando ideias em experiências digitais extraordinárias
+                através de código limpo e soluções inovadoras.
               </p>
             </div>
 
-            <Button
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-              asChild
-            >
-              <Link href="#contact">
-                Entrar em Contato
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Footer Content */}
-      <div className="container mx-auto px-6 py-12">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-          {/* Personal Info */}
-          <div className="space-y-4">
-            <div className="flex items-center space-x-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-r from-blue-600 to-purple-600">
-                <FileText className="h-5 w-5 text-white" />
+            {/* Social Links */}
+            <div className="space-y-4">
+              <h4 className="font-semibold text-white">Conecte-se Comigo</h4>
+              <div className="flex gap-3">
+                {githubLink && (
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="rounded-xl border-white/20 bg-white/5 text-white backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:bg-white/10 hover:shadow-lg"
+                    asChild
+                  >
+                    <Link href={githubLink} target="_blank">
+                      <Github className="h-5 w-5" />
+                    </Link>
+                  </Button>
+                )}
+                {linkedinLink && (
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="rounded-xl border-white/20 bg-white/5 text-white backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:bg-white/10 hover:shadow-lg"
+                    asChild
+                  >
+                    <Link href={linkedinLink} target="_blank">
+                      <Linkedin className="h-5 w-5" />
+                    </Link>
+                  </Button>
+                )}
+                {instagramLink && (
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="rounded-xl border-white/20 bg-white/5 text-white backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:bg-white/10 hover:shadow-lg"
+                    asChild
+                  >
+                    <Link href={instagramLink} target="_blank">
+                      <Instagram className="h-5 w-5" />
+                    </Link>
+                  </Button>
+                )}
+                {twitterLink && (
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="rounded-xl border-white/20 bg-white/5 text-white backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:bg-white/10 hover:shadow-lg"
+                    asChild
+                  >
+                    <Link href={twitterLink} target="_blank">
+                      <Twitter className="h-5 w-5" />
+                    </Link>
+                  </Button>
+                )}
               </div>
-              <span className="text-xl font-bold">{user.name}</span>
-            </div>
-
-            <p className="text-sm leading-relaxed text-blue-200">
-              Desenvolvedor Full Stack apaixonado por criar soluções digitais
-              inovadoras.
-            </p>
-
-            <div className="flex space-x-4">
-              {githubLink && (
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="text-blue-200 hover:bg-white/10 hover:text-white"
-                  asChild
-                >
-                  <Link href={githubLink} target="_blank">
-                    <Github className="h-5 w-5" />
-                  </Link>
-                </Button>
-              )}
-              {linkedinLink && (
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="text-blue-200 hover:bg-white/10 hover:text-white"
-                  asChild
-                >
-                  <Link href={linkedinLink} target="_blank">
-                    <Linkedin className="h-5 w-5" />
-                  </Link>
-                </Button>
-              )}
-              {instagramLink && (
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="text-blue-200 hover:bg-white/10 hover:text-white"
-                  asChild
-                >
-                  <Link href={instagramLink} target="_blank">
-                    <Instagram className="h-5 w-5" />
-                  </Link>
-                </Button>
-              )}
-              {twitterLink && (
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="text-blue-200 hover:bg-white/10 hover:text-white"
-                  asChild
-                >
-                  <Link href={twitterLink} target="_blank">
-                    <Twitter className="h-5 w-5" />
-                  </Link>
-                </Button>
-              )}
             </div>
           </div>
 
-          {/* Skills/Expertise */}
-          <div className="space-y-4">
-            <h4 className="text-lg font-semibold">Expertise</h4>
-            <ul className="space-y-2 text-sm text-blue-200">
-              <li>
-                <span className="transition-colors hover:text-white">
-                  Desenvolvimento Web
-                </span>
-              </li>
-              <li>
-                <span className="transition-colors hover:text-white">
-                  React & Next.js
-                </span>
-              </li>
-              <li>
-                <span className="transition-colors hover:text-white">
-                  Node.js & Backend
-                </span>
-              </li>
-              <li>
-                <span className="transition-colors hover:text-white">
-                  Banco de Dados
-                </span>
-              </li>
-              <li>
-                <span className="transition-colors hover:text-white">
-                  UI/UX Design
-                </span>
-              </li>
+          {/* Technologies */}
+          <div className="space-y-6">
+            <h4 className="text-lg font-semibold text-white">Tecnologias</h4>
+            <div className="grid grid-cols-1 gap-3">
+              {technologies.map((tech, index) => (
+                <div
+                  key={tech.name}
+                  className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm transition-all duration-300 hover:border-white/20 hover:bg-white/10"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-blue-400">
+                    {tech.icon}
+                  </div>
+                  <span className="font-medium text-gray-300 group-hover:text-white">
+                    {tech.name}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Quick Links */}
+          <div className="space-y-6">
+            <h4 className="text-lg font-semibold text-white">
+              Navegação Rápida
+            </h4>
+            <ul className="space-y-3">
+              {quickLinks.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    href={link.href}
+                    className="group flex items-center gap-3 rounded-xl px-4 py-3 text-gray-300 transition-all duration-300 hover:bg-white/5 hover:text-white"
+                  >
+                    <span className="text-lg">{link.icon}</span>
+                    <span className="font-medium">{link.name}</span>
+                    <ArrowRight className="ml-auto h-4 w-4 opacity-0 transition-all group-hover:translate-x-1 group-hover:opacity-100" />
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Navigation */}
-          <div className="space-y-4">
-            <h4 className="text-lg font-semibold">Navegação</h4>
-            <ul className="space-y-2 text-sm text-blue-200">
-              <li>
-                <Link
-                  href="#home"
-                  className="transition-colors hover:text-white"
-                >
-                  Início
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#about"
-                  className="transition-colors hover:text-white"
-                >
-                  Sobre
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#projects"
-                  className="transition-colors hover:text-white"
-                >
-                  Projetos
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#skills"
-                  className="transition-colors hover:text-white"
-                >
-                  Habilidades
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#contact"
-                  className="transition-colors hover:text-white"
-                >
-                  Contato
-                </Link>
-              </li>
-            </ul>
-          </div>
+          {/* Contact & Info */}
+          <div className="space-y-6">
+            <h4 className="text-lg font-semibold text-white">Informações</h4>
 
-          {/* Contact Info */}
-          <div className="space-y-4">
-            <h4 className="text-lg font-semibold">Contato</h4>
-            <div className="space-y-3 text-sm text-blue-200">
+            <div className="space-y-4">
               {user.email && (
-                <div className="flex items-center space-x-3">
-                  <Mail className="h-4 w-4 text-blue-400" />
-                  <span>{user.email}</span>
+                <div className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm transition-all duration-300 hover:border-white/20 hover:bg-white/10">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500/20">
+                    <Mail className="h-5 w-5 text-blue-400" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-400">Email</p>
+                    <p className="font-medium text-white">{user.email}</p>
+                  </div>
                 </div>
               )}
 
               {user.location && (
-                <div className="flex items-center space-x-3">
-                  <MapPin className="h-4 w-4 text-blue-400" />
-                  <span>{user.location}</span>
+                <div className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm transition-all duration-300 hover:border-white/20 hover:bg-white/10">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-green-500/20">
+                    <MapPin className="h-5 w-5 text-green-400" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-400">Localização</p>
+                    <p className="font-medium text-white">{user.location}</p>
+                  </div>
                 </div>
               )}
 
-              <div className="flex items-center space-x-3">
-                <MessageCircle className="h-4 w-4 text-blue-400" />
-                <span>Disponível para freelances</span>
+              <div className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm transition-all duration-300 hover:border-white/20 hover:bg-white/10">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-yellow-500/20">
+                  <Calendar className="h-5 w-5 text-yellow-400" />
+                </div>
+                <div>
+                  <p className="text-sm text-gray-400">Disponibilidade</p>
+                  <p className="font-medium text-white">
+                    Aberto a oportunidades
+                  </p>
+                </div>
               </div>
             </div>
 
             <Button
-              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+              className="w-full rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 py-6 font-semibold shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-blue-500/25"
               asChild
             >
               <Link href="#contact">
-                <Mail className="mr-2 h-4 w-4" />
+                <Mail className="mr-3 h-5 w-5" />
                 Enviar Mensagem
-              </Link>
-            </Button>
-
-            <Button
-              variant="outline"
-              className="w-full border-white/20 text-white hover:bg-white/10"
-              asChild
-            >
-              <Link href="/curriculo.pdf" target="_blank" download>
-                <FileText className="mr-2 h-4 w-4" />
-                Baixar CV
               </Link>
             </Button>
           </div>
         </div>
 
-        <Separator className="my-8 bg-white/10" />
+        <Separator className="my-12 bg-white/10" />
 
         {/* Bottom Footer */}
-        <div className="flex flex-col items-center justify-between space-y-4 md:flex-row md:space-y-0">
-          <div className="flex items-center space-x-2 text-sm text-blue-200">
-            <span>
-              © {currentYear} {user.name}. Todos os direitos reservados.
-            </span>
-            <Badge variant="secondary" className="text-xs">
-              v1.0.0
-            </Badge>
+        <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
+          <div className="flex flex-col items-center gap-4 text-center md:flex-row md:text-left">
+            <div className="flex items-center gap-3">
+              <span className="text-gray-400">
+                © {currentYear} {user.name}
+              </span>
+              <Badge
+                variant="secondary"
+                className="border-blue-500/30 bg-blue-500/20 text-blue-300"
+              >
+                v3.0.0
+              </Badge>
+            </div>
+            <span className="hidden text-gray-500 md:block">•</span>
+            <span className="text-gray-400">Todos os direitos reservados</span>
           </div>
 
-          <div className="flex items-center space-x-6 text-sm text-blue-200">
+          <div className="flex items-center gap-6">
             <Link
               href="/politica-privacidade"
-              className="transition-colors hover:text-white"
+              className="text-gray-400 transition-colors hover:text-white"
             >
               Privacidade
             </Link>
             <Link
               href="/termos-uso"
-              className="transition-colors hover:text-white"
+              className="text-gray-400 transition-colors hover:text-white"
             >
               Termos
             </Link>
           </div>
 
-          <div className="flex items-center space-x-2 text-sm text-blue-200">
+          <div className="flex items-center gap-2 text-gray-400">
             <span>Desenvolvido com</span>
-            <Heart className="h-4 w-4 text-red-400" />
+            <Heart className="h-4 w-4 animate-pulse text-red-400" />
             <span>por {user.name}</span>
           </div>
         </div>
       </div>
 
-      {/* Decorative Elements */}
-      <div className="absolute right-0 bottom-0 left-0 h-px bg-gradient-to-r from-transparent via-blue-500 to-transparent"></div>
+      {/* Gradient Border */}
+      <div className="h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent" />
     </footer>
   );
 }

@@ -5,14 +5,24 @@ const prisma = new PrismaClient();
 
 async function main() {
   // Criar usuário principal (você)
-  const user = await prisma.user.create({
-    data: {
+  const user = await prisma.user.upsert({
+    where: { email: "erikdossantos2006@outlook.com" }, // campo único
+    update: {
+      name: "Erik Rafael dos Santos",
+      slug: "erikdossantos",
+      role: "Desenvolvedor Fullstack",
+      bio: `Sou apaixonado por tecnologia, acredito no poder da educação e me dedico a ajudar vidas por meio da programação. A cada linha de código, busco trazer inovação e criar experiências únicas. Atualmente curso Análise e Desenvolvimento de Sistemas pela Faculdade SENAI em Joinville – SC, e aplico meus conhecimentos nas áreas de TI, programação, design, automação e análise de dados.`,
+      location: "Joinville - SC",
+      avatarUrl:
+        "https://1hcgs7spbatxhpzg.public.blob.vercel-storage.com/EU2.jpg",
+    },
+    create: {
       name: "Erik Rafael dos Santos",
       email: "erikdossantos2006@outlook.com",
       slug: "erikdossantos",
       role: "Desenvolvedor Fullstack",
       bio: `Sou apaixonado por tecnologia, acredito no poder da educação e me dedico a ajudar vidas por meio da programação. A cada linha de código, busco trazer inovação e criar experiências únicas. Atualmente curso Análise e Desenvolvimento de Sistemas pela Faculdade SENAI em Joinville – SC, e aplico meus conhecimentos nas áreas de TI, programação, design, automação e análise de dados.`,
-      location: "Joinville - Pirabeiraba, Joinville - SC",
+      location: "Joinville - SC",
       avatarUrl:
         "https://1hcgs7spbatxhpzg.public.blob.vercel-storage.com/EU2.jpg",
       socialLinks: {
@@ -32,6 +42,10 @@ async function main() {
           {
             platform: "email",
             url: "mailto:erikdossantos2006@outlook.com",
+          },
+          {
+            platform: "instagram",
+            url: "https://www.instagram.com/dossantoserik_jesus/",
           },
           {
             platform: "curriculo",
@@ -124,7 +138,6 @@ async function main() {
             iconUrl:
               "https://1hcgs7spbatxhpzg.public.blob.vercel-storage.com/tailwindcss.svg",
           },
-
           // Ferramentas
           {
             name: "Git",
@@ -176,7 +189,7 @@ async function main() {
               "https://1hcgs7spbatxhpzg.public.blob.vercel-storage.com/unity.svg",
           },
 
-          // APIs & Databases
+          // APIs & Auth
           {
             name: "Stripe",
             category: "APIs",
@@ -193,11 +206,20 @@ async function main() {
           },
           {
             name: "Prisma",
-            category: "APIs",
+            category: "ORM",
             proficiency: 72,
             iconUrl:
               "https://1hcgs7spbatxhpzg.public.blob.vercel-storage.com/prisma.svg",
           },
+          {
+            name: "JWT",
+            category: "Auth",
+            proficiency: 75,
+            iconUrl:
+              "https://1hcgs7spbatxhpzg.public.blob.vercel-storage.com/jwt.svg",
+          },
+
+          // Databases
           {
             name: "Firebase",
             category: "Databases",
@@ -213,13 +235,19 @@ async function main() {
               "https://1hcgs7spbatxhpzg.public.blob.vercel-storage.com/mysql.svg",
           },
           {
-            name: "Neon",
+            name: "PostgreSQL (Neon)",
             category: "Databases",
             proficiency: 65,
             iconUrl:
               "https://1hcgs7spbatxhpzg.public.blob.vercel-storage.com/neon.svg",
           },
-
+          {
+            name: "SQLite",
+            category: "Databases",
+            proficiency: 60,
+            iconUrl:
+              "https://1hcgs7spbatxhpzg.public.blob.vercel-storage.com/sqlite.svg",
+          },
           // Design
           {
             name: "Photoshop",
@@ -279,8 +307,40 @@ async function main() {
             iconUrl:
               "https://1hcgs7spbatxhpzg.public.blob.vercel-storage.com/discord.svg",
           },
+
+          // Soft Skills
+          { name: "Comunicação", category: "Soft Skills", proficiency: 85 },
+          {
+            name: "Trabalho em Equipe",
+            category: "Soft Skills",
+            proficiency: 85,
+          },
+          { name: "Liderança", category: "Soft Skills", proficiency: 80 },
+          { name: "Empatia", category: "Soft Skills", proficiency: 80 },
+          { name: "Criatividade", category: "Soft Skills", proficiency: 85 },
+          { name: "Adaptabilidade", category: "Soft Skills", proficiency: 85 },
+          { name: "Gestão de Tempo", category: "Soft Skills", proficiency: 90 },
+          {
+            name: "Resolução de Problemas",
+            category: "Soft Skills",
+            proficiency: 90,
+          },
+          {
+            name: "Pensamento Analítico",
+            category: "Soft Skills",
+            proficiency: 85,
+          },
+          { name: "Autonomia", category: "Soft Skills", proficiency: 90 },
+          { name: "Proatividade", category: "Soft Skills", proficiency: 85 },
+          {
+            name: "Aprendizado Contínuo",
+            category: "Soft Skills",
+            proficiency: 90,
+          },
+          { name: "Organização", category: "Soft Skills", proficiency: 85 },
         ],
       },
+
       educations: {
         create: [
           {
@@ -347,6 +407,7 @@ async function main() {
               "Neon",
               "Stripe",
             ],
+            status: "PAUSED",
             featured: true,
           },
           {
@@ -365,6 +426,7 @@ async function main() {
               "Bootstrap",
               "Firebase",
             ],
+            status: "PLANNING",
             featured: true,
           },
           {
@@ -383,7 +445,8 @@ async function main() {
               "ShadCN",
               "emailjs",
             ],
-            featured: true,
+            status: "FINISHED",
+            featured: false,
           },
           {
             title: "L'Amour Games Project",
@@ -394,6 +457,7 @@ async function main() {
               "https://1hcgs7spbatxhpzg.public.blob.vercel-storage.com/lamour.png",
             deployUrl: "https://lamour-games.vercel.app",
             technologies: ["React", "JavaScript", "Firebase", "Discord OAuth"],
+            status: "PLANNING",
             featured: true,
           },
           {
@@ -405,7 +469,8 @@ async function main() {
               "https://1hcgs7spbatxhpzg.public.blob.vercel-storage.com/dog.png",
             deployUrl: "https://amantesdedogs.vercel.app",
             technologies: ["React", "JavaScript", "CSS"],
-            featured: true,
+            status: "FINISHED",
+            featured: false,
           },
           {
             title: "Kire Visual Designers",
@@ -416,7 +481,8 @@ async function main() {
               "https://1hcgs7spbatxhpzg.public.blob.vercel-storage.com/designers.png",
             deployUrl: "https://kvd-kire-visual-designers.vercel.app",
             technologies: ["JavaScript", "HTML5", "CSS"],
-            featured: true,
+            status: "ARCHIVED",
+            featured: false,
           },
           {
             title: "Portfólio V1",
@@ -428,27 +494,8 @@ async function main() {
             deployUrl:
               "https://portifolio-erik-santos.vercel.app/pgPrincipal/pgPrincipal.html",
             technologies: ["JavaScript", "HTML5", "CSS"],
-            featured: true,
-          },
-          {
-            title: "Landing Page Eterno Momento Audiovisual",
-            description:
-              "Landing page moderna para empresa de fotografia e filmagem",
-            detailedDesc:
-              "Desenvolvimento de uma landing page elegante e responsiva para a Eterno Momento, empresa especializada em fotografia e produção de vídeos. O site destaca serviços, portfólio visual e canais de contato, transmitindo profissionalismo e emoção para atrair novos clientes.",
-            imageUrl:
-              "https://1hcgs7spbatxhpzg.public.blob.vercel-storage.com/eternomomento.png",
-            deployUrl:
-              "https://photography-landing-page-eight.vercel.app/eterno-momento",
-            technologies: [
-              "Next.js",
-              "TypeScript",
-              "Tailwind CSS",
-              "Prisma",
-              "Neon",
-              "ShadCN",
-            ],
-            featured: true,
+            status: "ARCHIVED",
+            featured: false,
           },
           {
             title: "Portfolio Corretor de Imóveis",
@@ -468,6 +515,47 @@ async function main() {
               "Neon",
               "ShadCN",
             ],
+            status: "DEVELOPING",
+            featured: true,
+          },
+          {
+            title: "Landing Page - Neodoxa",
+            description:
+              "Agência de Marketing Digital - Desenvolvimento Web, Social Media e Tráfego Pago",
+            detailedDesc:
+              "Desenvolvimento de uma landing page completa, com foco em transmitir credibilidade e atrair clientes.",
+            imageUrl:
+              "https://1hcgs7spbatxhpzg.public.blob.vercel-storage.com/neodoxa.png",
+            deployUrl: "https://neodoxa.vercel.app/neodoxa",
+            technologies: [
+              "Next.js",
+              "TypeScript",
+              "Tailwind CSS",
+              "Prisma",
+              "Neon",
+              "ShadCN",
+            ],
+            status: "DEVELOPING",
+            featured: true,
+          },
+          {
+            title: "Gerenciador de Tarefas - Tarefando",
+            description:
+              "Gerenciador de tarefas simples e eficiente para organizar seu dia a dia",
+            detailedDesc:
+              "Aplicativo web para gerenciamento de tarefas com funcionalidades de adicionar, editar, excluir e marcar tarefas como concluídas. Interface intuitiva e responsiva.",
+            imageUrl:
+              "https://1hcgs7spbatxhpzg.public.blob.vercel-storage.com/tarefando.png",
+            deployUrl: "https://tarefando-one.vercel.app/",
+            technologies: [
+              "Django",
+              "Python",
+              "Bootstrap",
+              "HTML5",
+              "Neon",
+              "CSS3",
+            ],
+            status: "DEVELOPING",
             featured: true,
           },
         ],

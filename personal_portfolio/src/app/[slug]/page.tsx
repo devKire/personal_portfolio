@@ -37,7 +37,6 @@ const Page = async ({ params }: PortfolioPageProps) => {
         orderBy: { proficiency: "desc" },
       },
       projects: {
-        where: { featured: true },
         orderBy: { createdAt: "desc" },
       },
       educations: {

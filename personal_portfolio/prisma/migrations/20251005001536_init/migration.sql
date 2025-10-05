@@ -1,51 +1,12 @@
-/*
-  Warnings:
-
-  - You are about to drop the `Category` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `ContactInfo` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `LandingPage` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Photo` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Service` table. If the table is not empty, all the data it contains will be lost.
-
-*/
--- DropForeignKey
-ALTER TABLE "Category" DROP CONSTRAINT "Category_landingpageId_fkey";
-
--- DropForeignKey
-ALTER TABLE "ContactInfo" DROP CONSTRAINT "ContactInfo_landingpageId_fkey";
-
--- DropForeignKey
-ALTER TABLE "Photo" DROP CONSTRAINT "Photo_categoryId_fkey";
-
--- DropForeignKey
-ALTER TABLE "Photo" DROP CONSTRAINT "Photo_landingpageId_fkey";
-
--- DropForeignKey
-ALTER TABLE "Photo" DROP CONSTRAINT "Photo_serviceId_fkey";
-
--- DropForeignKey
-ALTER TABLE "Service" DROP CONSTRAINT "Service_landingpageId_fkey";
-
--- DropTable
-DROP TABLE "Category";
-
--- DropTable
-DROP TABLE "ContactInfo";
-
--- DropTable
-DROP TABLE "LandingPage";
-
--- DropTable
-DROP TABLE "Photo";
-
--- DropTable
-DROP TABLE "Service";
+-- CreateEnum
+CREATE TYPE "ProjectStatus" AS ENUM ('DEVELOPING', 'FINISHED', 'PLANNING', 'PAUSED', 'ARCHIVED');
 
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
+    "slug" TEXT NOT NULL,
     "avatarUrl" TEXT,
     "role" TEXT NOT NULL,
     "bio" TEXT NOT NULL,
@@ -110,6 +71,7 @@ CREATE TABLE "Skill" (
     "proficiency" INTEGER DEFAULT 0,
     "iconUrl" TEXT,
     "userId" TEXT NOT NULL,
+    "level" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -127,6 +89,7 @@ CREATE TABLE "Project" (
     "githubUrl" TEXT,
     "technologies" TEXT[],
     "featured" BOOLEAN NOT NULL DEFAULT false,
+    "status" "ProjectStatus" NOT NULL DEFAULT 'DEVELOPING',
     "userId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -166,6 +129,9 @@ CREATE TABLE "ContactSubmission" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_slug_key" ON "User"("slug");
 
 -- AddForeignKey
 ALTER TABLE "SocialLink" ADD CONSTRAINT "SocialLink_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;

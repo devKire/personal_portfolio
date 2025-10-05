@@ -255,6 +255,7 @@
   transform: translateY(0) scale(1.01);
   background-image: linear-gradient(to right, #6366f1, #3b82f6);
 }
+
 @layer base {
   * {
     @apply border-border;

@@ -54,7 +54,7 @@ const Page = async ({ params }: PortfolioPageProps) => {
 
   return (
     <>
-      <div className="min-h-screen w-full">
+      <div className="bg-background min-h-screen w-full overflow-x-hidden">
         {/* Cabeçalho */}
         <Header user={user} />
 

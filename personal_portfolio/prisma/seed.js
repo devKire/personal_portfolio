@@ -458,7 +458,7 @@ async function main() {
             deployUrl: "https://lamour-games.vercel.app",
             technologies: ["React", "JavaScript", "Firebase", "Discord OAuth"],
             status: "PLANNING",
-            featured: true,
+            featured: false,
           },
           {
             title: "Página de Vendas - E-book Pet",
@@ -556,6 +556,46 @@ async function main() {
               "CSS3",
             ],
             status: "DEVELOPING",
+            featured: true,
+          },
+          {
+            title: "Bella Vita - Salão de Beleza",
+            description:
+              "Landing Page moderna e estratégica para salão de beleza",
+            detailedDesc:
+              "Desenvolvimento de uma landing page completa, com foco em transmitir credibilidade e atrair clientes. Inclui seção de apresentação, portfólio de serviços, funil de conversão otimizado e call-to-action que direciona o usuário a entrar em contato diretamente com o salão.",
+            imageUrl:
+              "https://1hcgs7spbatxhpzg.public.blob.vercel-storage.com/bellavita.png",
+            deployUrl: "https://bellavita-six.vercel.app/",
+            technologies: [
+              "Next.js",
+              "TypeScript",
+              "Tailwind CSS",
+              "Prisma",
+              "Neon",
+              "ShadCN",
+            ],
+            status: "FINISHED",
+            featured: true,
+          },
+          {
+            title: "João Garcia - Fotografia",
+            description:
+              "Landing Page moderna e estratégica para fotógrafo profissional",
+            detailedDesc:
+              "Landing page desenvolvida para o fotógrafo João Garcia, com o objetivo de apresentar seu portfólio de forma elegante e profissional. A página inclui seções para galeria de fotos, depoimentos de clientes, informações de contato e cta para agendamento de sessões fotográficas. O design é responsivo, garantindo uma ótima experiência em dispositivos móveis e desktops.",
+            imageUrl:
+              "https://1hcgs7spbatxhpzg.public.blob.vercel-storage.com/joaogarcia.png",
+            deployUrl: "https://joaogarcia.vercel.app/",
+            technologies: [
+              "Next.js",
+              "TypeScript",
+              "Tailwind CSS",
+              "Prisma",
+              "Neon",
+              "ShadCN",
+            ],
+            status: "FINISHED",
             featured: true,
           },
         ],
